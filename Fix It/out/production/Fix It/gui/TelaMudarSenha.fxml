@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="135.0" prefWidth="289.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TelaDemitirFunconario">
+    <children>
+        <Label layoutY="40.0" text="Nova Senha:" />
+        <TextField layoutX="89.0" layoutY="35.0" prefHeight="31.0" prefWidth="189.0" />
+        <Button layoutX="152.0" layoutY="98.0" mnemonicParsing="false" text="Mudar" />
+      <TextField layoutX="89.0" layoutY="61.0" prefHeight="31.0" prefWidth="189.0" promptText="Digite Novamente a Nova Senha" />
+    </children>
+</AnchorPane>

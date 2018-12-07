@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="199.0" prefWidth="337.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ControlePromoverFuncionario">
+    <children>
+        <TextField fx:id="texto" layoutX="90.0" layoutY="60.0" />
+        <Label fx:id="lb1" layoutX="47.0" layoutY="60.0" prefHeight="31.0" prefWidth="39.0" text="Cpf:">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <Button fx:id="promover" layoutX="124.0" layoutY="124.0" mnemonicParsing="false" onAction="#promoverFuncionario" prefHeight="43.0" prefWidth="89.0" text="Promover" />
+    </children>
+</AnchorPane>

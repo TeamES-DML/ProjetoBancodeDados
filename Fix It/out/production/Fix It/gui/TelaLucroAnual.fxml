@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="233.0" prefWidth="256.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ControleLucroAnual">
+    <children>
+        <TextField fx:id="anoTf" layoutX="54.0" layoutY="87.0" prefHeight="31.0" prefWidth="177.0" promptText="Digite o ano" />
+        <Label fx:id="lb1" layoutX="22.0" layoutY="92.0" text="Ano:" />
+        <Button fx:id="calcular" layoutX="89.0" layoutY="138.0" mnemonicParsing="false" onAction="#calcularLucroAnual" text="Calcular" />
+    </children>
+</AnchorPane>

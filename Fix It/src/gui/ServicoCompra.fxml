@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="235.0" prefWidth="330.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ControleServicoCompra">
+   <children>
+      <Label fx:id="lb1" layoutX="23.0" layoutY="69.0" text="Data:" />
+      <TextField fx:id="dia" layoutX="59.0" layoutY="65.0" prefHeight="25.0" prefWidth="46.0" promptText="Dia" />
+      <Label layoutX="114.0" layoutY="69.0" text="/" />
+      <TextField fx:id="mes" layoutX="125.0" layoutY="65.0" prefHeight="25.0" prefWidth="46.0" promptText="Mes" />
+      <TextField fx:id="ano" layoutX="189.0" layoutY="65.0" prefHeight="25.0" prefWidth="46.0" promptText="Ano" />
+      <Label layoutX="177.0" layoutY="69.0" text="/" />
+      <Label fx:id="lb2" layoutX="23.0" layoutY="111.0" text="Produto:" />
+      <ChoiceBox fx:id="produtosCbox" layoutX="85.0" layoutY="107.0" prefWidth="150.0" />
+      <Button fx:id="salvar" layoutX="122.0" layoutY="152.0" mnemonicParsing="false" onAction="#addServicoCompra" text="Salvar" />
+   </children>
+</AnchorPane>
