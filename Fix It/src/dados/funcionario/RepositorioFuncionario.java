@@ -9,7 +9,7 @@ public class RepositorioFuncionario implements IRepositorioFuncionario{
 
 	private ArrayList<Funcionario> listaFuncionario;
 	private Database db;
-	
+
 	public RepositorioFuncionario(){
 		this.listaFuncionario = new ArrayList<Funcionario>();
 		this.listaFuncionario.add(new Funcionario("Daniel","10579130495","123","Gerente"));

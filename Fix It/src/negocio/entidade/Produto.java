@@ -8,12 +8,14 @@ public class Produto {
 	private double precoVenda;
 	private static int contadorProdutos = 0;
 	private int id = 0;
+	private boolean ePeca;
 	
 	public Produto(String nome, double precoCompra, double precoVenda){
 		this.tipo = new SimpleStringProperty(nome);
 		this.precoCompra = precoCompra;
 		this.precoVenda = precoVenda;
 		this.id = contadorProdutos;
+		this.ePeca = false;
 		contadorProdutos++;
 	}
 
@@ -43,5 +45,13 @@ public class Produto {
 
 	public int getId(){
 		return this.id;
+	}
+
+	public boolean getEPeca() {
+		return ePeca;
+	}
+
+	public void setePeca(boolean ePeca) {
+		this.ePeca = ePeca;
 	}
 }

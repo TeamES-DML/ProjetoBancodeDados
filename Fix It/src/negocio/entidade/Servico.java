@@ -35,9 +35,20 @@ public class Servico {
 		this.id = contadorServico;
 		contadorServico++;
 	}
+
+	public Servico(String tipoOperacao, Produto produto, DataSimples dataServico, double precoServico, boolean concluido, String descricao, int id) {
+		this.tipoOperacao = tipoOperacao;
+		this.produto = produto;
+		this.dataServico = dataServico;
+		this.precoServico = precoServico;
+		this.concluido = concluido;
+		this.descricao = descricao;
+		this.id = id;
+	}
+
 	/*
-	Construtor so com produto, logo nao tem veiculo, entao sera uma compra.
-	 */
+        Construtor so com produto, logo nao tem veiculo, entao sera uma compra.
+         */
 	public Servico(Produto produto, DataSimples data){
 		this.tipoOperacao = "Compra";
 		this.produto = produto;

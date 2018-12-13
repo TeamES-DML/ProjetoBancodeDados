@@ -56,7 +56,7 @@ public class ControleServicosAndamento implements Initializable{
         veiculosCb.setValue("Veiculos");
         veiculosCb.setItems(veiculosStatusList);
     }
-
+    /*
     public void buscar(){
         try {
             ObservableList<Produto> produtostatusList = FXCollections.observableArrayList();
@@ -85,4 +85,5 @@ public class ControleServicosAndamento implements Initializable{
             alerta.showAndWait();
         }
     }
+    */
 }
