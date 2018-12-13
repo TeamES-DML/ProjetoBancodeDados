@@ -45,7 +45,7 @@
                                 </ImageView>
                             </graphic>
                         </Button>
-                        <Button fx:id="botaoServico" layoutX="535.0" layoutY="154.0" mnemonicParsing="false" onAction="#cadastroServico" prefHeight="35.0" prefWidth="249.0" text="Serviço (Venda ou Reparo)">
+                        <Button fx:id="botaoServico" layoutX="535.0" layoutY="154.0" mnemonicParsing="false" onAction="#cadastroServico" prefHeight="35.0" prefWidth="249.0" text="Serviço (Vendas)">
                             <graphic>
                                 <ImageView fitHeight="68.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
                                     <image>

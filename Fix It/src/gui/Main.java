@@ -38,9 +38,9 @@ public class Main extends Application {
     }
     public static void main(String[] args){
 
-        //launch(args);
-        Database testando = new Database();
-        testando.testarConexao();
+        launch(args);
+        //Database testando = new Database();
+        //testando.iniciarBanco();
 
     }
 

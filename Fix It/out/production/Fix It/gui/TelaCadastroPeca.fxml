@@ -7,16 +7,18 @@
 
 <AnchorPane fx:id="tela" prefHeight="270.0" prefWidth="442.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ControlePeca">
    <children>
-      <Label fx:id="lb1" alignment="CENTER_RIGHT" layoutX="13.0" layoutY="32.0" prefHeight="21.0" prefWidth="118.0" text="Tipo:" textAlignment="RIGHT" />
+      <Label fx:id="lb1" alignment="CENTER_RIGHT" layoutX="97.0" layoutY="32.0" prefHeight="21.0" prefWidth="34.0" text="Tipo:" textAlignment="RIGHT" />
       <Label fx:id="lb2" layoutX="13.0" layoutY="63.0" text="Modelo do Carro:" />
       <Label fx:id="lb3" alignment="CENTER_RIGHT" layoutX="13.0" layoutY="89.0" text="Preço de Compra:" />
-      <Label fx:id="lb4" alignment="CENTER_RIGHT" layoutX="13.0" layoutY="115.0" prefHeight="21.0" prefWidth="117.0" text="Preco de Venda:" />
-      <Label fx:id="lb5" alignment="CENTER_RIGHT" layoutX="12.0" layoutY="141.0" prefHeight="21.0" prefWidth="118.0" text="Preco de Reparo:" />
-      <Button fx:id="registrar" layoutX="178.0" layoutY="189.0" mnemonicParsing="false" onAction="#addPeca" text="Registrar" />
+      <Label fx:id="lb4" alignment="CENTER_RIGHT" layoutX="19.0" layoutY="115.0" prefHeight="21.0" prefWidth="111.0" text="Preco de Venda:" />
+      <Label fx:id="lb5" alignment="CENTER_RIGHT" layoutX="13.0" layoutY="141.0" prefHeight="21.0" prefWidth="117.0" text="Preco de Reparo:" />
+      <Button fx:id="registrar" layoutX="182.0" layoutY="218.0" mnemonicParsing="false" onAction="#addPeca" text="Registrar" />
       <TextField fx:id="tipoTF" layoutX="132.0" layoutY="27.0" promptText="Ex: Motor" />
       <TextField fx:id="modeloTF" layoutX="132.0" layoutY="58.0" promptText="Ex: Uno 2007" />
       <TextField fx:id="precoCompraTF" layoutX="132.0" layoutY="84.0" />
       <TextField fx:id="precoVendaTF" layoutX="132.0" layoutY="110.0" />
       <TextField fx:id="precoReparoTF" layoutX="132.0" layoutY="136.0" />
+      <Label fx:id="lb6" layoutX="21.0" layoutY="167.0" text="Preco instalação:" />
+      <TextField fx:id="precoInstalacaoTF" layoutX="132.0" layoutY="165.0" />
    </children>
 </AnchorPane>

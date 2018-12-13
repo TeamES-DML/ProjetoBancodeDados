@@ -46,6 +46,10 @@ public class ControlePeca implements Initializable {
 
     @FXML
     private Label lb5;
+
+    @FXML
+    private Label lb6;
+
     @FXML
     private TextField tipoTF;
 
@@ -61,6 +65,9 @@ public class ControlePeca implements Initializable {
     @FXML
     private TextField precoReparoTF;
 
+    @FXML
+    private TextField precoInstalacaoTF;
+
     @Override
     public void initialize(URL url, ResourceBundle rb){
         //OK
@@ -73,7 +80,8 @@ public class ControlePeca implements Initializable {
             double precoCompra = Double.valueOf(precoCompraTF.getText());
             double precoVenda = Double.valueOf(precoVendaTF.getText());
             double precoReparo = Double.valueOf(precoReparoTF.getText());
-            Peca peca = new Peca(tipo,modelo,precoCompra,precoVenda,precoReparo);
+            double precoInstalacao = Double.valueOf(precoInstalacaoTF.getText());
+            Peca peca = new Peca(tipo,modelo,precoCompra,precoVenda, precoInstalacao ,precoReparo);
             this.fachada.adicionarProduto(peca);
             Alert alerta = new Alert(Alert.AlertType.INFORMATION);
             alerta.setTitle("Confirmacao");

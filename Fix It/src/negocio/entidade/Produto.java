@@ -6,11 +6,15 @@ public class Produto {
 	private SimpleStringProperty tipo;// Ex: Oleo
 	private double precoCompra;
 	private double precoVenda;
+	private static int contadorProdutos = 0;
+	private int id = 0;
 	
 	public Produto(String nome, double precoCompra, double precoVenda){
 		this.tipo = new SimpleStringProperty(nome);
 		this.precoCompra = precoCompra;
 		this.precoVenda = precoVenda;
+		this.id = contadorProdutos;
+		contadorProdutos++;
 	}
 
 	public String getTipo() {
@@ -35,5 +39,9 @@ public class Produto {
 
 	public void setPrecoVenda(int precoVenda) {
 		this.precoVenda = precoVenda;
+	}
+
+	public int getId(){
+		return this.id;
 	}
 }

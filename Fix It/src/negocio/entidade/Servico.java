@@ -10,6 +10,8 @@ public class Servico {
 	private double precoServico;
 	private boolean concluido;
 	private String descricao;
+	private static int contadorServico = 0;
+	private int id = 0;
 	/*
 	Contrutor recebendo operacao, veiculo e produto. Como recebe veiculo, entao nao pode ser compra.
 	Dentro do contrutor e feita uma checagem se o tipo de operacao e reparo, pois o unico tipo q possui reparo e peca,
@@ -21,12 +23,17 @@ public class Servico {
 		if (this.tipoOperacao.equals("Reparo") && this.produto instanceof Peca){
 			this.precoServico = ((Peca) produto).getPrecoReparo();
 		}
+		else if(this.tipoOperacao.equals("Instalacao") && this.produto instanceof Peca){
+			this.precoServico = ((Peca) produto).getPrecoMaoDeObra();
+		}
 		else{
 			this.precoServico = produto.getPrecoVenda();
 		}
 		this.descricao = descricao;
 		this.concluido = false;
 		this.dataServico = data;
+		this.id = contadorServico;
+		contadorServico++;
 	}
 	/*
 	Construtor so com produto, logo nao tem veiculo, entao sera uma compra.
@@ -37,6 +44,8 @@ public class Servico {
 		this.precoServico = this.produto.getPrecoCompra();
 		this.dataServico = data;
 		this.concluido = true;
+		this.id = contadorServico;
+		contadorServico++;
 	}
 
 	public String getTipoOperacao() {
@@ -81,5 +90,9 @@ public class Servico {
 			}
 		}
 		return false;
+	}
+
+	public int getId(){
+		return this.id;
 	}
 }

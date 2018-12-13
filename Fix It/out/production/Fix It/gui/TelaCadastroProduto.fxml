@@ -7,12 +7,12 @@
 
 <AnchorPane prefHeight="231.0" prefWidth="388.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ControleProduto">
    <children>
-      <Label fx:id="lb1" alignment="CENTER_RIGHT" layoutX="37.0" layoutY="82.0" prefHeight="17.0" prefWidth="95.0" text="Tipo:" />
-      <Label fx:id="lb2" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="110.0" text="Preco de Compra:" />
-      <Label fx:id="lb3" alignment="CENTER_RIGHT" layoutX="19.0" layoutY="136.0" prefHeight="21.0" prefWidth="108.0" text="Preco de Venda:" />
-      <TextField fx:id="precoCompraTF" layoutX="134.0" layoutY="105.0" />
-      <TextField fx:id="tipoTF" layoutX="134.0" layoutY="78.0" promptText="Ex: Oleo" />
-      <TextField fx:id="precoVendaTF" layoutX="134.0" layoutY="131.0" />
-      <Button fx:id="registrar" layoutX="183.0" layoutY="164.0" mnemonicParsing="false" onAction="#addProduto" text="Registrar" />
+      <Label fx:id="lb1" alignment="CENTER_RIGHT" layoutX="98.0" layoutY="29.0" prefHeight="21.0" prefWidth="36.0" text="Tipo:" />
+      <Label fx:id="lb2" alignment="CENTER_RIGHT" layoutX="14.0" layoutY="70.0" text="Preco de Compra:" />
+      <Label fx:id="lb3" alignment="CENTER_RIGHT" layoutX="20.0" layoutY="105.0" prefHeight="21.0" prefWidth="112.0" text="Preco de Venda:" />
+      <TextField fx:id="precoCompraTF" layoutX="134.0" layoutY="65.0" />
+      <TextField fx:id="tipoTF" layoutX="134.0" layoutY="24.0" promptText="Ex: Oleo" />
+      <TextField fx:id="precoVendaTF" layoutX="134.0" layoutY="102.0" />
+      <Button fx:id="registrar" layoutX="188.0" layoutY="193.0" mnemonicParsing="false" onAction="#addProduto" text="Registrar" />
    </children>
 </AnchorPane>

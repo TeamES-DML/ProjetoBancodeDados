@@ -45,7 +45,7 @@ public class NegocioVeiculo {
             throw new VeiculoNaoEncontradoException();
         }
     }
-    public void adicionarServico(Veiculo veiculo,Servico servico) throws ServicoRepetidoException, DataInvalidaException, DescricaoNaoDeclaradaException, ModeloIncompativelException, OperacaoIncompativelException {
+    /*public void adicionarServico(Veiculo veiculo,Servico servico) throws ServicoRepetidoException, DataInvalidaException, DescricaoNaoDeclaradaException, ModeloIncompativelException, OperacaoIncompativelException {
         boolean flag = false;
         for(int i = 0; i < veiculo.getListaServico().size(); i++){
             if(veiculo.getListaServico().get(i).equals(servico)){
@@ -70,7 +70,7 @@ public class NegocioVeiculo {
         else{
             veiculo.adicionarServico(servico);
         }
-    }
+    }*/
 
     public IRepositorioVeiculo getRepositorio() {
         return repositorio;

@@ -16,6 +16,7 @@ public class RepositorioFuncionario implements IRepositorioFuncionario{
 	@Override
 	public void adicionar(Funcionario funcionario){
 		this.listaFuncionario.add(funcionario);
+
 	}
 
 

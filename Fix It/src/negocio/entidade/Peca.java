@@ -5,8 +5,10 @@ import javafx.beans.property.SimpleStringProperty;
 public class Peca extends Produto {
 	private SimpleStringProperty modeloCarro;// Ex: Fiat
 	private double precoReparo;
-	public Peca(String tipo,String modeloCarro,double precoCompra,double precoVenda,double precoReparo){
+	private double precoMaoDeObra;
+	public Peca(String tipo,String modeloCarro,double precoCompra,double precoVenda, double precoMaoDeObra,double precoReparo){
 		super(tipo,precoCompra,precoVenda);// Ex Tipo: Motor
+		this.precoMaoDeObra = precoMaoDeObra;
 		this.modeloCarro = new SimpleStringProperty(modeloCarro);
 		this.precoReparo = precoReparo;
 	}
@@ -25,5 +27,9 @@ public class Peca extends Produto {
 
 	public void setPrecoReparo(double precoReparo) {
 		this.precoReparo = precoReparo;
+	}
+
+	public double getPrecoMaoDeObra(){
+		return this.precoMaoDeObra;
 	}
 }

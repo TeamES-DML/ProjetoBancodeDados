@@ -33,6 +33,8 @@ public class ControleProduto implements Initializable{
     @FXML
     private Label lb3;
 
+
+
     @FXML
     private TextField tipoTF;
 

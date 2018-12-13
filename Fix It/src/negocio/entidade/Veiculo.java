@@ -44,6 +44,7 @@ public class Veiculo {
 	public void setServico(ArrayList<Servico> lista) {
 		this.vetorServico = lista;
 	}
+
 	public ArrayList<Servico> getServicosNaoConcluidos(){
 		ArrayList<Servico> lista = new ArrayList<Servico>();
 		if(this.getListaServico().size() != 0){
@@ -55,7 +56,7 @@ public class Veiculo {
 		}
 		return lista;
 	}
-	public void adicionarServico(Servico servico){
-		this.vetorServico.add(servico);
-	}
+	//public void adicionarServico(Servico servico){
+		//this.vetorServico.add(servico);
+	//}
 }

@@ -26,7 +26,7 @@ public class ControleServicoReparo implements Initializable {
     }
     ObservableList<String> produtosStatusList = FXCollections.observableArrayList();
     ObservableList<String> veiculosStatusList = FXCollections.observableArrayList();
-    ObservableList<String> operacoesStatusList = FXCollections.observableArrayList("Venda", "Reparo");
+    ObservableList<String> operacoesStatusList = FXCollections.observableArrayList("Venda", "Reparo", "Instalacao");
 
     @FXML
     private Label lb1;

@@ -34,7 +34,7 @@ public class NegocioProduto {
             else if(((Peca) produto).getModeloCarro().equals("")){
                 throw new ModeloNaoDeclaradoException();
             }
-            else if(((Peca) produto).getPrecoReparo() == 0.0){
+            else if(((Peca) produto).getPrecoReparo() == 0.0 || ((Peca) produto).getPrecoMaoDeObra() == 0.0){
                 throw new PrecoDeReparoNaoDeclaradoException();
             }
             else{

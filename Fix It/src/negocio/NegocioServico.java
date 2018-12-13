@@ -131,6 +131,15 @@ public class NegocioServico {
         }
     }
 
+    public void adicionarVenda(Servico servico) throws DataInvalidaException{
+        if(!servico.getDataServico().validar()){
+            throw new DataInvalidaException();
+        }
+        else{
+            this.repositorio.adicionar(servico);
+        }
+    }
+
     public IRepositorioServicoConcluido getRepositorio() {
         return repositorio;
     }
