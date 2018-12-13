@@ -11,6 +11,7 @@ public class Peca extends Produto {
 		this.precoMaoDeObra = precoMaoDeObra;
 		this.modeloCarro = new SimpleStringProperty(modeloCarro);
 		this.precoReparo = precoReparo;
+		this.setePeca(true);
 	}
 	public String getModeloCarro() {
 		return modeloCarro.get();

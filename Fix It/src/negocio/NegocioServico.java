@@ -108,6 +108,7 @@ public class NegocioServico {
             return listaFinal;
         }
     }
+    /*
     public void concluirServico(Veiculo veiculo, Servico servico) throws ServicoAConcluirNaoEncontradoException {
         ArrayList<Servico> arrayServicos = veiculo.getServicosNaoConcluidos();
         boolean flag = true;
@@ -122,6 +123,7 @@ public class NegocioServico {
             throw new ServicoAConcluirNaoEncontradoException();
         }
     }
+    */
     public void adicionarCompra(Servico servico) throws DataInvalidaException{
         if(!servico.getDataServico().validar()){
             throw new DataInvalidaException();

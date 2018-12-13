@@ -10,7 +10,7 @@ public class RepositorioVeiculo implements IRepositorioVeiculo{
 
 	private ArrayList<Veiculo> listaVeiculo;
 	private Database db;
-	
+
 	public RepositorioVeiculo(){
 		this.listaVeiculo = new ArrayList<Veiculo>();
 		this.db = new Database();

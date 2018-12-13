@@ -2,10 +2,12 @@ package dados.servico;
 
 import java.util.ArrayList;
 
+import dados.Database;
 import negocio.entidade.Servico;
 
 public class RepositorioServicoConcluido implements IRepositorioServicoConcluido {
     private ArrayList<Servico> listaServico;
+    private Database db;
 
     public RepositorioServicoConcluido(){
         this.listaServico = new ArrayList<Servico>();

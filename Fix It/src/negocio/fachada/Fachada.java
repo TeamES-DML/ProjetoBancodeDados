@@ -71,9 +71,11 @@ public class Fachada {
     public ArrayList<Produto> produtosRecorrentes(IRepositorioProduto repositorio) throws NaoHaProdutosException{
         return this.negocioServico.produtosRecorrentes(repositorio.getArrayProduto());
     }
+    /*
     public void concluirServico(Veiculo veiculo, Servico servico) throws ServicoAConcluirNaoEncontradoException{
         this.negocioServico.concluirServico(veiculo, servico);
     }
+    */
     public void adicionarVeiculo(Veiculo veiculo) throws VeiculoRepetidoException, PlacaInvalidaException, PlacaNaoDeclaradaException, ModeloNaoDeclaradoException, NomeNaoDeclaradoException {
         this.negocioVeiculo.adicionarVeiculo(veiculo);
     }
@@ -83,8 +85,8 @@ public class Fachada {
     public String logar(Funcionario funcionario, String senha) throws SenhaIncorretaException, FuncionarioNaoEncontradoException {
         return this.negocioFuncionario.login(funcionario, senha);
     }
-    public void adicionarServico(Veiculo veiculo, Servico servico) throws ServicoRepetidoException, DataInvalidaException, DescricaoNaoDeclaradaException, ModeloIncompativelException, OperacaoIncompativelException{
-        this.negocioVeiculo.adicionarServico(veiculo, servico);
+    public void adicionarServico(Servico servico) throws  DataInvalidaException{
+        this.negocioServico.adicionarVenda( servico);
     }
     public void adicionarCompra(Servico servico)throws DataInvalidaException{
         this.negocioServico.adicionarCompra(servico);
