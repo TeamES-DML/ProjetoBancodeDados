@@ -1,4 +1,6 @@
 package dados;
+import negocio.entidade.*;
+
 import java.sql.*;
 
 public class Database {
@@ -60,6 +62,39 @@ public class Database {
             comando = "CREATE TABLE if not exists servico(id INT, tipoOperacao VARCHAR(15) NOT NULL, data CHAR(10) NOT NULL, precoServico DOUBLE NOT NULL, placaVeiculo CHAR(7) NOT NULL, produtoID INT NOT NULL, FOREIGN KEY(produtoID) REFERENCES produto(id), FOREIGN KEY(placaVeiculo) REFERENCES veiculo(placa), PRIMARY KEY(id))";
             this.executarComando(comando);
             comando = "INSERT INTO funcionario(cpf,nome,escalao,senha) VALUES ('05801485481','Luis Filipe Santos Seixas','Gerente','lf123')";
+            this.executarComando(comando);
+            this.fecharConexao();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void adicionarFuncionario(Funcionario f){
+        try{
+            this.abrirConexao();
+            String comando = String.format("INSERT funcionario VALUES(%s, %s, %s, %s)", f.getCpf(), f.getNome(), f.getEscalao(), f.getSenha());
+            this.executarComando(comando);
+            this.fecharConexao();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void adicionarProduto(Produto p){
+        try {
+            this.abrirConexao();
+            String comando = String.format("INSERT produto VALUES(%s, %f, %f, %f, %d, %BOOLEAN, %f, %s)", p.getTipo(), p.getPrecoVenda(), p.getPrecoCompra(), p.getMaoDeObra(), p.getId(), p.getEPeca(), p.getPrecoReparo(), p.getModeloCarro());
+            this.executarComando(comando);
+            this.fecharConexao();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void adicionarVeiculo(Veiculo v){
+        try{
+            this.abrirConexao();
+            String comando = String.format("INSERT veiculo VALUES(%s, %s, %s)", v.getProprietario(), v.getPlaca(), v.getModelo());
             this.executarComando(comando);
             this.fecharConexao();
         }catch (Exception e){

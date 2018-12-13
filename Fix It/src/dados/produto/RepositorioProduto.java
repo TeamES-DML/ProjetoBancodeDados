@@ -2,18 +2,24 @@ package dados.produto;
 
 import java.util.ArrayList;
 
+import dados.Database;
 import negocio.entidade.Peca;
 import negocio.entidade.Produto;
 import negocio.entidade.*;
+
 public class RepositorioProduto implements IRepositorioProduto{
+
 	private ArrayList<Produto> listaProduto;
+	private Database db;
 	
 	public RepositorioProduto(){
 		this.listaProduto = new ArrayList<Produto>();
+		this.db = new Database();
 	}
 	@Override
 	public void adicionar(Produto produto){
 		this.listaProduto.add(produto);
+		this.db.adicionarProduto(produto);
 	}
 	@Override
 	public void remover(Produto produto) {
