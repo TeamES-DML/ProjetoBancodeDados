@@ -1,5 +1,6 @@
 package dados;
 import java.sql.*;
+import java.util.ArrayList;
 
 import negocio.entidade.*;
 
@@ -109,6 +110,83 @@ public class Database {
             this.fecharConexao();
         }catch (Exception e){
             e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Funcionario> listarFuncionario() {
+        ArrayList<Funcionario> lista = new ArrayList<Funcionario>();
+        try{
+            this.abrirConexao();
+            String comando = String.format("SELECT * FROM funcionario");
+            ResultSet rs = this.executarComando(comando);
+            String cpf;
+            String nome;
+            String senha;
+            String escalao;
+            while (rs.next()){
+                cpf = rs.getString("cpf");
+                nome = rs.getString("nome");
+                escalao = rs.getString("escalao");
+                senha = rs.getString("senha");
+                lista.add(new Funcionario(nome,cpf,senha,escalao));
+            }
+            this.fecharConexao();
+            return lista;
+        }catch (Exception e){
+            e.printStackTrace();
+            return lista;
+        }
+    }
+
+    public void removerFuncionario(Funcionario funcionario){
+        try{
+            this.abrirConexao();
+            String comando = String.format("DELETE FROM funcionario WHERE cpf='%s'",funcionario.getCpf());
+            this.executarComando(comando);
+            this.fecharConexao();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Produto> listarProdutos(){
+        ArrayList<Produto> lista = new ArrayList<Produto>();
+        try{
+            this.abrirConexao();
+            String comando = String.format("SELECT * FROM produto");
+            ResultSet rs = this.executarComando(comando);
+            String tipo;
+            String modeloCarro;
+            double precoVenda;
+            double precoCompra;
+            double maoDeObra;
+            double precoReparo;
+            int id;
+            boolean ePeca;
+            //tipo, precoVenda, precoCompra, maoDeObra, id, ePeca, precoReparo, modeloCarro
+            while (rs.next()){
+                tipo = rs.getString("tipo");
+                modeloCarro = rs.getString("modeloCarro");
+                precoVenda = rs.getDouble("precoVenda");
+                precoCompra = rs.getDouble("precoCompra");
+                precoReparo = rs.getDouble("precoReparo");
+                maoDeObra = rs.getDouble("maoDeObra");
+                id = rs.getInt("id");
+                ePeca = rs.getBoolean("ePeca");
+                if (ePeca){
+                    lista.add(new Peca(tipo,modeloCarro,precoCompra,precoVenda,maoDeObra,precoReparo,id));
+                }
+                else{
+                    lista.add(new Produto(tipo,precoCompra,precoVenda,id));
+                }
+
+            }
+
+            this.fecharConexao();
+            return lista;
+        }catch (Exception e){
+            e.printStackTrace();
+            return lista;
         }
     }
 

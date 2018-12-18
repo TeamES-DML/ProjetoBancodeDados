@@ -25,7 +25,7 @@ public class RepositorioProduto implements IRepositorioProduto{
 		this.db.removerProduto(produto);
 	}
 	public ArrayList<Produto> getArrayProduto() {
-		return this.db.listarProdutos;
+		return this.db.listarProdutos();
 	}
 	@Override
 	public Produto procurarProduto(String tipo, String modeloCarro){//Procurar na lista a determinada peca que seja do modelo adequado
