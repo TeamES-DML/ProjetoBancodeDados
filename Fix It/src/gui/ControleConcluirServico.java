@@ -50,10 +50,10 @@ public class ControleConcluirServico implements Initializable {
 
     private ArrayList<String> criarListaServico(Veiculo veiculo){
         ArrayList<String> listaServico = new ArrayList<String>();
-        if(veiculo.getServicosNaoConcluidos().size() != 0){
+        if(fachada.getServicosNaoConcluidos(veiculo).size() != 0){
             String aux;
-            for(int i = 0; i < veiculo.getServicosNaoConcluidos().size(); i++){
-                aux = veiculo.getServicosNaoConcluidos().get(i).getProduto().getTipo() + "; " + veiculo.getServicosNaoConcluidos().get(i).getDescricao() + "; " + veiculo.getServicosNaoConcluidos().get(i).getTipoOperacao();
+            for(int i = 0; i < fachada.getServicosNaoConcluidos(veiculo).size(); i++){
+                aux = fachada.getServicosNaoConcluidos(veiculo).get(i).getProduto().getTipo() + "; " + fachada.getServicosNaoConcluidos(veiculo).get(i).getDescricao() + "; " + fachada.getServicosNaoConcluidos(veiculo).get(i).getTipoOperacao();
                 listaServico.add(aux);
             }
         }
@@ -81,7 +81,7 @@ public class ControleConcluirServico implements Initializable {
             if(fachada.getNegocioVeiculo().getRepositorio().getArray().size() != 0){
                 veiculo = fachada.getNegocioVeiculo().getRepositorio().procurarVeiculo(placa);
             }
-            if(veiculo.getServicosNaoConcluidos().size() != 0){
+            if(fachada.getServicosNaoConcluidos(veiculo).size() != 0){
                 if(criarListaServico(veiculo).size() != 0){
                     for(int i = 0; i < criarListaServico(veiculo).size(); i++){
                         servicosStatusList.add(criarListaServico(veiculo).get(i));
@@ -114,10 +114,10 @@ public class ControleConcluirServico implements Initializable {
                 veiculo = fachada.getNegocioVeiculo().getRepositorio().procurarVeiculo(placa);
             }
             if (veiculo != null) {
-                if (veiculo.getServicosNaoConcluidos().size() != 0) {
-                    for (int i = 0; i < veiculo.getServicosNaoConcluidos().size(); i++) {
-                        if (veiculo.getServicosNaoConcluidos().get(i).getTipoOperacao().equals(listaServ[2]) && veiculo.getServicosNaoConcluidos().get(i).getDescricao().equals(listaServ[1]) && veiculo.getServicosNaoConcluidos().get(i).getProduto().getTipo().equals(listaServ[0])) {
-                            fachada.concluirServico(veiculo, veiculo.getServicosNaoConcluidos().get(i));
+                if (fachada.getServicosNaoConcluidos(veiculo).size() != 0) {
+                    for (int i = 0; i < fachada.getServicosNaoConcluidos(veiculo).size(); i++) {
+                        if (fachada.getServicosNaoConcluidos(veiculo).get(i).getTipoOperacao().equals(listaServ[2]) && fachada.getServicosNaoConcluidos(veiculo).get(i).getDescricao().equals(listaServ[1]) && fachada.getServicosNaoConcluidos(veiculo).get(i).getProduto().getTipo().equals(listaServ[0])) {
+                            fachada.concluirServico(veiculo, fachada.getServicosNaoConcluidos(veiculo).get(i));
                             Alert alerta = new Alert(Alert.AlertType.INFORMATION);
                             alerta.setTitle("Confirmacao");
                             alerta.setHeaderText("Conclusao efetuada");

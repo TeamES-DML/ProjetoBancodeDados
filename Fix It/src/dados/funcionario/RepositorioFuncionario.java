@@ -39,4 +39,9 @@ public class RepositorioFuncionario implements IRepositorioFuncionario{
 		}
 		return funcionarioProcurado;
 	}
+
+	@Override
+	public void atualizaEscalao(Funcionario f, String escalao){
+		this.db.atualizarFuncionario(f,escalao);
+	}
 }

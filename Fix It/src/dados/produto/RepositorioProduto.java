@@ -49,4 +49,15 @@ public class RepositorioProduto implements IRepositorioProduto{
 		}
 		return produtoProcurado;
 	}
+	public Produto procurarPeca(String tipo,String modelo){
+		Produto produtoProcurado = null;
+		ArrayList<Produto> listaProduto = this.getArrayProduto();
+		for(int i = 0;i<listaProduto.size();i++){
+			if(listaProduto.get(i).getTipo().equals(tipo) && ((Peca)(listaProduto).get(i)).getModeloCarro().equals(modelo)){
+				produtoProcurado = listaProduto.get(i);
+				return produtoProcurado;
+			}
+		}
+		return produtoProcurado;
+	}
 }

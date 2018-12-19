@@ -60,10 +60,10 @@ public class Database {
             this.executarComando(comando);
             comando = "CREATE TABLE if not exists veiculo(proprietario VARCHAR(120) NOT NULL, placa CHAR(7) NOT NULL, modelo VARCHAR(30) NOT NULL, PRIMARY KEY(placa))";
             this.executarComando(comando);
-            comando = "CREATE TABLE if not exists servico(id INT, tipoOperacao VARCHAR(15) NOT NULL, data CHAR(10) NOT NULL, precoServico DOUBLE NOT NULL, placaVeiculo CHAR(7) NOT NULL, produtoID INT NOT NULL, FOREIGN KEY(produtoID) REFERENCES produto(id), FOREIGN KEY(placaVeiculo) REFERENCES veiculo(placa), PRIMARY KEY(id))";
+            comando = "CREATE TABLE if not exists servico(id INT, tipoOperacao VARCHAR(15) NOT NULL, data CHAR(10) NOT NULL, precoServico DOUBLE NOT NULL, placaVeiculo CHAR(7) NOT NULL, produtoID INT NOT NULL, concluido BOOLEAN NOT NULL, descricao VARCHAR(50), FOREIGN KEY(produtoID) REFERENCES produto(id), FOREIGN KEY(placaVeiculo) REFERENCES veiculo(placa), PRIMARY KEY(id))";
             this.executarComando(comando);
-            comando = "INSERT INTO INTO funcionario(cpf,nome,escalao,senha) VALUES ('05801485481','Luis Filipe Santos Seixas','Gerente','lf123')";
-            this.executarComando(comando);
+            //comando = "INSERT INTO INTO funcionario(cpf,nome,escalao,senha) VALUES ('05801485481','Luis Filipe Santos Seixas','Gerente','lf123')";
+            //this.executarComando(comando);
             this.fecharConexao();
         }catch (Exception e){
             e.printStackTrace();
@@ -83,13 +83,19 @@ public class Database {
     //verificar peca
     public void adicionarProduto(Produto p){
         try {
+            int ispeca;
             this.abrirConexao();
-            boolean ispeca = p.getEPeca();
+            if(p.getEPeca()){
+                ispeca = 0;
+            }
+            else{
+                ispeca = 1;
+            }
             double MaoDeObra = 0.0;
             double PrecoReparo = 0.0;
             String ModeloCarro = null;
 
-            if(ispeca){
+            if(ispeca == 0){
                 MaoDeObra = ((Peca) p).getPrecoMaoDeObra();
                 PrecoReparo = ((Peca) p).getPrecoReparo();
                 ModeloCarro = ((Peca) p).getModeloCarro();
@@ -190,6 +196,208 @@ public class Database {
         }
     }
 
-    //public void adicionarServico
+    public void removerProduto(Produto p){
+        try{
+            this.abrirConexao();
+            if (p instanceof Peca) {
+                String comando = String.format("DELETE FROM funcionario WHERE tipo='%s' AND modeloCarro='%s'", p.getTipo(),((Peca) p).getModeloCarro());
+                this.executarComando(comando);
+            }else{
+                String comando = String.format("DELETE FROM funcionario WHERE tipo='%s'", p.getTipo());
+                this.executarComando(comando);
+            }
+            this.fecharConexao();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Veiculo> listarVeiculo(){
+        ArrayList<Veiculo> lista = new ArrayList<Veiculo>();
+        try{
+            //proprietario,placa,modelo
+            this.abrirConexao();
+            String comando = String.format("SELECT * FROM veiculo");
+            ResultSet rs = this.executarComando(comando);
+            String proprietario;
+            String modeloCarro;
+            String placa;
+            //tipo, precoVenda, precoCompra, maoDeObra, id, ePeca, precoReparo, modeloCarro
+            while (rs.next()){
+                proprietario = rs.getString("proprietario");
+                modeloCarro = rs.getString("modelo");
+                placa = rs.getString("placa");
+
+                lista.add(new Veiculo(proprietario,placa,modeloCarro));
+
+            }
+
+            this.fecharConexao();
+            return lista;
+        }catch (Exception e){
+            e.printStackTrace();
+            return lista;
+        }
+    }
+
+    public void removerVeiculo(Veiculo veiculo){
+        try{
+            this.abrirConexao();
+            String comando = String.format("DELETE FROM veiculo WHERE placa='%s'",veiculo.getPlaca());
+            this.executarComando(comando);
+            this.fecharConexao();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Servico> listarServicoAndamento(Veiculo v){
+        ArrayList<Servico> lista = new ArrayList<Servico>();
+        try {
+            //id INT, tipoOperacao, data, precoServico, placaVeiculo, produtoID INT
+            this.abrirConexao();
+            String comando = String.format("SELECT * FROM servico WHERE placaVeiculo='$s' AND concluido=false", v.getPlaca());
+            ResultSet rs = this.executarComando(comando);
+            String tipoOperacao;
+            boolean concluido;
+            String descricao;
+            String data;
+            int id;
+            double preco;
+            int produtoID;
+            String command;
+            String command2;
+            ResultSet rs2;
+            Produto p;
+
+            while (rs.next()){
+                tipoOperacao = rs.getString("tipoOperacao");
+                data = rs.getString("data");
+                id = rs.getInt("id");
+                preco = rs.getDouble("precoServico");
+                produtoID = rs.getInt("produtoID");
+                command = String.format("SELECT * FROM produto WHERE id=%d", produtoID);
+                concluido = rs.getBoolean("concluido");
+                descricao = rs.getString("descricao");
+                rs2 = this.executarComando(command);
+                rs2.next();
+
+                if (rs2.getBoolean("ePeca")){
+                    p = new Peca(rs2.getString("tipo"),rs2.getString("modeloCarro"),rs2.getDouble("precoCompra"),rs2.getDouble("precoVenda"),rs2.getDouble("maoDeObra"),rs2.getDouble("precoReparo"),rs2.getInt("id"));
+
+                }
+                else{
+                    p = new Produto(rs2.getString("tipo"),rs2.getDouble("precoCompra"),rs2.getDouble("precoVenda"),rs2.getInt("id"));
+                }
+                lista.add(new Servico(tipoOperacao, p, new DataSimples(Integer.parseInt(data.substring(0,2)),Integer.parseInt(data.substring(3,5)),Integer.parseInt(data.substring(6))), preco, concluido, descricao, id, v.getPlaca()));
+
+            }
+
+            this.fecharConexao();
+            return lista;
+        }catch (Exception e){
+            e.printStackTrace();
+            return lista;
+        }
+    }
+
+    public void concluir(Servico s){
+        try{
+            this.abrirConexao();
+            String comando = String.format("UPDATE servico SET concluido=true WHERE id=%d",s.getId());
+            this.executarComando(comando);
+            this.fecharConexao();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void removerServico(Servico servico){
+        try{
+            this.abrirConexao();
+            String comando = String.format("DELETE FROM servico WHERE id=%d",servico.getId());
+            this.executarComando(comando);
+            this.fecharConexao();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Servico> listarServicoConcluido(){
+        ArrayList<Servico> lista = new ArrayList<Servico>();
+        try {
+            //id INT, tipoOperacao, data, precoServico, placaVeiculo, produtoID INT
+            this.abrirConexao();
+            String comando = String.format("SELECT * FROM servico WHERE concluido=true");
+            ResultSet rs = this.executarComando(comando);
+            String tipoOperacao;
+            boolean concluido;
+            String descricao;
+            String data;
+            String placa;
+            int id;
+            double preco;
+            int produtoID;
+            String command;
+            String command2;
+            ResultSet rs2;
+            Produto p;
+
+            while (rs.next()){
+                tipoOperacao = rs.getString("tipoOperacao");
+                data = rs.getString("data");
+                placa = rs.getString("placa");
+                id = rs.getInt("id");
+                preco = rs.getDouble("precoServico");
+                produtoID = rs.getInt("produtoID");
+                command = String.format("SELECT * FROM produto WHERE id=%d", produtoID);
+                concluido = rs.getBoolean("concluido");
+                descricao = rs.getString("descricao");
+                rs2 = this.executarComando(command);
+                rs2.next();
+
+                if (rs2.getBoolean("ePeca")){
+                    p = new Peca(rs2.getString("tipo"),rs2.getString("modeloCarro"),rs2.getDouble("precoCompra"),rs2.getDouble("precoVenda"),rs2.getDouble("maoDeObra"),rs2.getDouble("precoReparo"),rs2.getInt("id"));
+
+                }
+                else{
+                    p = new Produto(rs2.getString("tipo"),rs2.getDouble("precoCompra"),rs2.getDouble("precoVenda"),rs2.getInt("id"));
+                }
+                lista.add(new Servico(tipoOperacao, p, new DataSimples(Integer.parseInt(data.substring(0,2)),Integer.parseInt(data.substring(3,5)),Integer.parseInt(data.substring(6))), preco, concluido, descricao, id, placa));
+
+            }
+
+            this.fecharConexao();
+            return lista;
+        }catch (Exception e){
+            e.printStackTrace();
+            return lista;
+        }
+    }
+
+    public void adicionarServico(Servico servico){
+        try{
+            String dia = String.format("%02d", servico.getDataServico().getDia());
+            String mes = String.format("%02d", servico.getDataServico().getMes());
+            String data = dia+"-"+mes+"-"+String.valueOf(servico.getDataServico().getAno());
+            this.abrirConexao();
+            String comando = String.format("INSERT INTO servico (id, tipoOperacao, data, precoServico, placaVeiculo, produtoID, concluido, descricao) VALUES(%d,'%s','%s',%f,'%s',%d,%b,'%s')",servico.getId(),servico.getTipoOperacao(),data,servico.getPrecoServico(),servico.getPlaca(),servico.getProduto().getId(),servico.getConcluido(),servico.getDescricao());
+            this.executarComando(comando);
+            this.fecharConexao();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void atualizarFuncionario(Funcionario f,String escalao){//Promocao e despromocao
+        try{
+            this.abrirConexao();
+            String comando = String.format("UPDATE funcionario SET escalao='%s' WHERE cpf='%s'",escalao,f.getCpf());
+            this.executarComando(comando);
+            this.fecharConexao();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }
 

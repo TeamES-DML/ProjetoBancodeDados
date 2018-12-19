@@ -12,13 +12,16 @@ public class Servico {
 	private String descricao;
 	private static int contadorServico = 0;
 	private int id = 0;
+	private String placa;
 	/*
 	Contrutor recebendo operacao, veiculo e produto. Como recebe veiculo, entao nao pode ser compra.
 	Dentro do contrutor e feita uma checagem se o tipo de operacao e reparo, pois o unico tipo q possui reparo e peca,
 	e entao precisara usar casting para atribuir o preco do reparo ao atributo PRECOSERVICO
 	 */
-	public Servico(String operacao, Produto produto, String descricao, DataSimples data){
+
+	public Servico(String operacao, Produto produto, String descricao, DataSimples data, String placaCarro){
 		this.tipoOperacao = operacao;
+		this.placa = placaCarro;
 		this.produto = produto;
 		if (this.tipoOperacao.equals("Reparo") && this.produto instanceof Peca){
 			this.precoServico = ((Peca) produto).getPrecoReparo();
@@ -36,8 +39,9 @@ public class Servico {
 		contadorServico++;
 	}
 
-	public Servico(String tipoOperacao, Produto produto, DataSimples dataServico, double precoServico, boolean concluido, String descricao, int id) {
+	public Servico(String tipoOperacao, Produto produto, DataSimples dataServico, double precoServico, boolean concluido, String descricao, int id, String placa) {
 		this.tipoOperacao = tipoOperacao;
+		this.placa = placa;
 		this.produto = produto;
 		this.dataServico = dataServico;
 		this.precoServico = precoServico;
@@ -51,6 +55,7 @@ public class Servico {
          */
 	public Servico(Produto produto, DataSimples data){
 		this.tipoOperacao = "Compra";
+		this.placa = "";
 		this.produto = produto;
 		this.precoServico = this.produto.getPrecoCompra();
 		this.dataServico = data;
@@ -105,5 +110,13 @@ public class Servico {
 
 	public int getId(){
 		return this.id;
+	}
+
+	public boolean isConcluido() {
+		return concluido;
+	}
+
+	public String getPlaca() {
+		return placa;
 	}
 }

@@ -25,7 +25,9 @@ public class Produto {
 		this.precoVenda = precoVenda;
 		this.id = id;
 		this.ePeca = false;
-		contadorProdutos++;
+		if (id >= contadorProdutos){
+			contadorProdutos = id+1;
+		}
 	}
 
 	public String getTipo() {
