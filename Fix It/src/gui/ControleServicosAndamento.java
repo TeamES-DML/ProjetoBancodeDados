@@ -56,7 +56,7 @@ public class ControleServicosAndamento implements Initializable{
         veiculosCb.setValue("Veiculos");
         veiculosCb.setItems(veiculosStatusList);
     }
-    /*
+
     public void buscar(){
         try {
             ObservableList<Produto> produtostatusList = FXCollections.observableArrayList();
@@ -66,11 +66,11 @@ public class ControleServicosAndamento implements Initializable{
                 veiculo = fachada.getNegocioVeiculo().getRepositorio().procurarVeiculo(placa);
             }
             tipoColuna.setCellValueFactory(new PropertyValueFactory<Produto, String>("tipo"));
-            if(veiculo.getServicosNaoConcluidos().size() != 0){
-                if(veiculo.getServicosNaoConcluidos().size() != 0){
-                    for(int i = 0; i < veiculo.getServicosNaoConcluidos().size(); i++){
-                        if(!veiculo.getServicosNaoConcluidos().get(i).getConcluido()){
-                            produtostatusList.add(veiculo.getServicosNaoConcluidos().get(i).getProduto());
+            if(fachada.getServicosNaoConcluidos(veiculo).size() != 0){
+                if(fachada.getServicosNaoConcluidos(veiculo).size() != 0){ //####################
+                    for(int i = 0; i < fachada.getServicosNaoConcluidos(veiculo).size(); i++){
+                        if(!fachada.getServicosNaoConcluidos(veiculo).get(i).getConcluido()){
+                            produtostatusList.add(fachada.getServicosNaoConcluidos(veiculo).get(i).getProduto());
                         }
                     }
                 }
@@ -85,5 +85,4 @@ public class ControleServicosAndamento implements Initializable{
             alerta.showAndWait();
         }
     }
-    */
 }

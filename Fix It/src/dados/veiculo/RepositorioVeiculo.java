@@ -8,35 +8,29 @@ import dados.*;
 
 public class RepositorioVeiculo implements IRepositorioVeiculo{
 
-	private ArrayList<Veiculo> listaVeiculo;
 	private Database db;
 
 	public RepositorioVeiculo(){
-		this.listaVeiculo = new ArrayList<Veiculo>();
 		this.db = new Database();
 	}
 
 	@Override
 	public void adicionar(Veiculo veiculo){
-		this.listaVeiculo.add(veiculo);
 		this.db.adicionarVeiculo(veiculo);
 	}
 
 	@Override
 	public void remover(Veiculo veiculo) {
-		this.listaVeiculo.remove(veiculo);
-	}
-
-	public ArrayList<Veiculo> getListaVeiculo() {
-		return this.listaVeiculo;
+		this.db.removerVeiculo(veiculo);
 	}
 
 	@Override
 	public Veiculo procurarVeiculo(String placa){
 		Veiculo veiculoProcurado = null;
-		for(int i = 0;i< this.listaVeiculo.size();i++){
-			if(this.listaVeiculo.get(i).getPlaca().equals(placa)){
-				veiculoProcurado = this.listaVeiculo.get(i);
+		ArrayList<Veiculo> listaVeiculo = this.getArray();
+		for(int i = 0;i< listaVeiculo.size();i++){
+			if(listaVeiculo.get(i).getPlaca().equals(placa)){
+				veiculoProcurado = listaVeiculo.get(i);
 			}
 		}
 		return veiculoProcurado;
@@ -44,7 +38,7 @@ public class RepositorioVeiculo implements IRepositorioVeiculo{
 
 	@Override
 	public ArrayList<Veiculo> getArray(){
-		return this.listaVeiculo;
+		return this.db.listarVeiculo();
 	}
 
 }

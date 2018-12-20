@@ -28,7 +28,7 @@ public class NegocioServico {
         else{
             for (int i = 0; i < repositorio.getArray().size(); i++) {
                 if (repositorio.getArray().get(i).getDataServico().getMes() == mes && repositorio.getArray().get(i).getDataServico().getAno() == ano && repositorio.getArray().get(i).getConcluido()) {
-                    if(repositorio.getArray().get(i).getTipoOperacao() == "Compra"){
+                    if(repositorio.getArray().get(i).getTipoOperacao().equals("Compra")){
                         lucro -= this.repositorio.getArray().get(i).getPrecoServico();
                     }
                     else{
@@ -48,7 +48,7 @@ public class NegocioServico {
         else {
             for (int i = 0; i < repositorio.getArray().size(); i++) {
                 if (repositorio.getArray().get(i).getDataServico().getAno() == ano && repositorio.getArray().get(i).getConcluido()) {
-                    if (repositorio.getArray().get(i).getTipoOperacao() == "Compra") {
+                    if (repositorio.getArray().get(i).getTipoOperacao().equals("Compra")) {
                         lucro -= this.repositorio.getArray().get(i).getPrecoServico();
                     } else {
                         lucro += this.repositorio.getArray().get(i).getPrecoServico();
@@ -108,14 +108,14 @@ public class NegocioServico {
             return listaFinal;
         }
     }
-    /*
+    //############################################
     public void concluirServico(Veiculo veiculo, Servico servico) throws ServicoAConcluirNaoEncontradoException {
-        ArrayList<Servico> arrayServicos = veiculo.getServicosNaoConcluidos();
+        ArrayList<Servico> arrayServicos = this.repositorio.servicosAndamento(veiculo);
         boolean flag = true;
         for (int k = 0; k < arrayServicos.size() && flag; k++) {
-            if (arrayServicos.get(k).equals(servico)) {
+            if (arrayServicos.get(k).getDataServico().toString().equals(servico.getDataServico().toString()) && arrayServicos.get(k).getProduto().getTipo().equals(servico.getProduto().getTipo()) && arrayServicos.get(k).getDescricao().equals(servico.getDescricao()) && arrayServicos.get(k).getPrecoServico() == servico.getPrecoServico()) {
                 servico.setConcluido(true);
-                repositorio.adicionar(servico);
+                this.repositorio.concluir(servico);
                 flag = false;
             }
         }
@@ -123,7 +123,8 @@ public class NegocioServico {
             throw new ServicoAConcluirNaoEncontradoException();
         }
     }
-    */
+    //############################################
+
     public void adicionarCompra(Servico servico) throws DataInvalidaException{
         if(!servico.getDataServico().validar()){
             throw new DataInvalidaException();

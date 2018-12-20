@@ -3,22 +3,31 @@ package negocio.entidade;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Peca extends Produto {
-	private SimpleStringProperty modeloCarro;// Ex: Fiat
+	private String modeloCarro;// Ex: Fiat
 	private double precoReparo;
 	private double precoMaoDeObra;
 	public Peca(String tipo,String modeloCarro,double precoCompra,double precoVenda, double precoMaoDeObra,double precoReparo){
 		super(tipo,precoCompra,precoVenda);// Ex Tipo: Motor
 		this.precoMaoDeObra = precoMaoDeObra;
-		this.modeloCarro = new SimpleStringProperty(modeloCarro);
+		this.modeloCarro = modeloCarro;
 		this.precoReparo = precoReparo;
 		this.setePeca(true);
 	}
+
+	public Peca(String tipo,String modeloCarro,double precoCompra,double precoVenda, double precoMaoDeObra,double precoReparo, int id){
+		super(tipo,precoCompra,precoVenda,id);// Ex Tipo: Motor
+		this.precoMaoDeObra = precoMaoDeObra;
+		this.modeloCarro = modeloCarro;
+		this.precoReparo = precoReparo;
+		this.setePeca(true);
+	}
+
 	public String getModeloCarro() {
-		return modeloCarro.get();
+		return this.modeloCarro;
 	}
 
 	public void setModeloCarro(String modeloCarro) {
-		this.modeloCarro.set(modeloCarro);
+		this.modeloCarro = modeloCarro;
 	}
 
 

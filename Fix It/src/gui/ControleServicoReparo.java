@@ -133,15 +133,15 @@ public class ControleServicoReparo implements Initializable {
             }
             String operacao = (String) operacoesCbox.getSelectionModel().getSelectedItem();
             String descricaoTf = descricao.getText();
-            Servico servico = new Servico(operacao, escolhido, descricaoTf, data);
-            fachada.adicionarServico(veiculo, servico);
+            Servico servico = new Servico(operacao, escolhido, descricaoTf, data, placa);
+            fachada.adicionarServico(servico);
             Alert alerta = new Alert(Alert.AlertType.INFORMATION);
             alerta.setTitle("Confirmacao");
             alerta.setHeaderText("Servico cadastrado");
             alerta.setContentText("Servico de venda/reparo cadastrado");
             alerta.showAndWait();
 
-        } catch (ServicoRepetidoException e) {
+        } /*catch (ServicoRepetidoException e) {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Erro");
             alerta.setHeaderText("ERRO");
@@ -171,7 +171,7 @@ public class ControleServicoReparo implements Initializable {
             alerta.setHeaderText("ERRO");
             alerta.setContentText("Modelo do carro e do peca sao incompativeis");
             alerta.showAndWait();
-        } catch (Exception e){
+        } */catch (Exception e){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Erro");
             alerta.setHeaderText("ERRO");

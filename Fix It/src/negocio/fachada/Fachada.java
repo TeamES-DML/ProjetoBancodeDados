@@ -71,11 +71,11 @@ public class Fachada {
     public ArrayList<Produto> produtosRecorrentes(IRepositorioProduto repositorio) throws NaoHaProdutosException{
         return this.negocioServico.produtosRecorrentes(repositorio.getArrayProduto());
     }
-    /*
+
     public void concluirServico(Veiculo veiculo, Servico servico) throws ServicoAConcluirNaoEncontradoException{
         this.negocioServico.concluirServico(veiculo, servico);
     }
-    */
+
     public void adicionarVeiculo(Veiculo veiculo) throws VeiculoRepetidoException, PlacaInvalidaException, PlacaNaoDeclaradaException, ModeloNaoDeclaradoException, NomeNaoDeclaradoException {
         this.negocioVeiculo.adicionarVeiculo(veiculo);
     }
@@ -86,7 +86,7 @@ public class Fachada {
         return this.negocioFuncionario.login(funcionario, senha);
     }
     public void adicionarServico(Servico servico) throws  DataInvalidaException{
-        this.negocioServico.adicionarVenda( servico);
+        this.negocioServico.adicionarVenda(servico);
     }
     public void adicionarCompra(Servico servico)throws DataInvalidaException{
         this.negocioServico.adicionarCompra(servico);
@@ -106,5 +106,9 @@ public class Fachada {
 
     public NegocioFuncionario getNegocioFuncionario() {
         return negocioFuncionario;
+    }
+
+    public ArrayList<Servico> getServicosNaoConcluidos(Veiculo veiculo){
+        return this.negocioServico.getRepositorio().servicosAndamento(veiculo);
     }
 }

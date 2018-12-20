@@ -13,4 +13,5 @@ public interface IRepositorioFuncionario {
 
     ArrayList<Funcionario> getArray();
 
+    void atualizaEscalao(Funcionario funcionario,String escalao);
 }

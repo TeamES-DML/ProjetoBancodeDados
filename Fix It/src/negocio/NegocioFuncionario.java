@@ -79,6 +79,7 @@ public class NegocioFuncionario {
             }
             else {
                 atual.promover();
+                this.repositorio.atualizaEscalao(atual,"Gerente");
             }
         }
     }
@@ -102,6 +103,7 @@ public class NegocioFuncionario {
             }
             else{
                 atual.despromover();
+                repositorio.atualizaEscalao(atual,"Normal");
             }
         }
     }
@@ -123,6 +125,6 @@ public class NegocioFuncionario {
     }
 
     public IRepositorioFuncionario getRepositorio() {
-        return repositorio;
+        return this.repositorio;
     }
 }

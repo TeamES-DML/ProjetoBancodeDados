@@ -15,6 +15,7 @@ public class RepositorioProduto implements IRepositorioProduto{
 	public RepositorioProduto(){
 		//this.listaProduto = new ArrayList<Produto>();
 		this.db = new Database();
+		this.getArrayProduto();
 	}
 	@Override
 	public void adicionar(Produto produto){
@@ -25,7 +26,7 @@ public class RepositorioProduto implements IRepositorioProduto{
 		this.db.removerProduto(produto);
 	}
 	public ArrayList<Produto> getArrayProduto() {
-		return this.db.listarProdutos;
+		return this.db.listarProdutos();
 	}
 	@Override
 	public Produto procurarProduto(String tipo, String modeloCarro){//Procurar na lista a determinada peca que seja do modelo adequado
@@ -45,6 +46,17 @@ public class RepositorioProduto implements IRepositorioProduto{
 		for(int i = 0;i<listaProduto.size();i++){
 			if(listaProduto.get(i).getTipo().equals(tipo)){
 				produtoProcurado = listaProduto.get(i);
+			}
+		}
+		return produtoProcurado;
+	}
+	public Produto procurarPeca(String tipo,String modelo){
+		Produto produtoProcurado = null;
+		ArrayList<Produto> listaProduto = this.getArrayProduto();
+		for(int i = 0;i<listaProduto.size();i++){
+			if(listaProduto.get(i).getTipo().equals(tipo) && ((Peca)(listaProduto).get(i)).getModeloCarro().equals(modelo)){
+				produtoProcurado = listaProduto.get(i);
+				return produtoProcurado;
 			}
 		}
 		return produtoProcurado;

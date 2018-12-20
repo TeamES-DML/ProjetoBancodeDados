@@ -14,9 +14,20 @@ public class Produto {
 		this.tipo = new SimpleStringProperty(nome);
 		this.precoCompra = precoCompra;
 		this.precoVenda = precoVenda;
-		this.id = contadorProdutos;
+		this.id = contadorProdutos+1;
 		this.ePeca = false;
 		contadorProdutos++;
+	}
+
+	public Produto(String nome, double precoCompra, double precoVenda, int id){
+		this.tipo = new SimpleStringProperty(nome);
+		this.precoCompra = precoCompra;
+		this.precoVenda = precoVenda;
+		this.id = id;
+		this.ePeca = false;
+		if (id >= contadorProdutos){
+			contadorProdutos = id+1;
+		}
 	}
 
 	public String getTipo() {
