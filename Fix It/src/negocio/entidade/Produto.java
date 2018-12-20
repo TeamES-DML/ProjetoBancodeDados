@@ -14,7 +14,7 @@ public class Produto {
 		this.tipo = new SimpleStringProperty(nome);
 		this.precoCompra = precoCompra;
 		this.precoVenda = precoVenda;
-		this.id = contadorProdutos;
+		this.id = contadorProdutos+1;
 		this.ePeca = false;
 		contadorProdutos++;
 	}

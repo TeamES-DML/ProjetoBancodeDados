@@ -12,6 +12,7 @@ public class RepositorioServicoConcluido implements IRepositorioServicoConcluido
 
     public RepositorioServicoConcluido(){
         this.db = new Database();
+        this.getArray();
     }
     @Override
     public void adicionar(Servico servico){

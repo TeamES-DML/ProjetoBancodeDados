@@ -56,11 +56,11 @@ public class Database {
             this.abrirConexao();
             String comando = "CREATE TABLE if not exists funcionario(cpf CHAR(11), nome VARCHAR(120) NOT NULL, escalao VARCHAR(11) NOT NULL, senha VARCHAR(50) NOT NULL, PRIMARY KEY(cpf))";
             this.executarComando(comando);
-            comando = "CREATE TABLE if not exists produto(tipo VARCHAR(30), precoVenda DOUBLE NOT NULL, precoCompra DOUBLE NOT NULL, maoDeObra DOUBLE, id INT NOT NULL, ePeca BOOLEAN NOT NULL, precoReparo DOUBLE, modeloCarro VARCHAR(30), PRIMARY KEY(id))";
+            comando = "CREATE TABLE if not exists produto(tipo VARCHAR(30), precoVenda FLOAT NOT NULL, precoCompra FLOAT NOT NULL, maoDeObra FLOAT, id INT NOT NULL, ePeca INT NOT NULL, precoReparo FLOAT, modeloCarro VARCHAR(30), PRIMARY KEY(id))";
             this.executarComando(comando);
             comando = "CREATE TABLE if not exists veiculo(proprietario VARCHAR(120) NOT NULL, placa CHAR(7) NOT NULL, modelo VARCHAR(30) NOT NULL, PRIMARY KEY(placa))";
             this.executarComando(comando);
-            comando = "CREATE TABLE if not exists servico(id INT, tipoOperacao VARCHAR(15) NOT NULL, data CHAR(10) NOT NULL, precoServico DOUBLE NOT NULL, placaVeiculo CHAR(7) NOT NULL, produtoID INT NOT NULL, concluido BOOLEAN NOT NULL, descricao VARCHAR(50), FOREIGN KEY(produtoID) REFERENCES produto(id), FOREIGN KEY(placaVeiculo) REFERENCES veiculo(placa), PRIMARY KEY(id))";
+            comando = "CREATE TABLE if not exists servico(id INT, tipoOperacao VARCHAR(15) NOT NULL, data CHAR(10) NOT NULL, precoServico FLOAT NOT NULL, placaVeiculo CHAR(7), produtoID INT NOT NULL, concluido INT NOT NULL, descricao VARCHAR(50), FOREIGN KEY(produtoID) REFERENCES produto(id), FOREIGN KEY(placaVeiculo) REFERENCES veiculo(placa), PRIMARY KEY(id))";
             this.executarComando(comando);
             //comando = "INSERT INTO INTO funcionario(cpf,nome,escalao,senha) VALUES ('05801485481','Luis Filipe Santos Seixas','Gerente','lf123')";
             //this.executarComando(comando);
@@ -77,7 +77,7 @@ public class Database {
             this.executarComando(comando);
             this.fecharConexao();
         }catch(Exception e){
-            e.printStackTrace();
+
         }
     }
     //verificar peca
@@ -86,21 +86,21 @@ public class Database {
             int ispeca;
             this.abrirConexao();
             if(p.getEPeca()){
-                ispeca = 0;
-            }
-            else{
                 ispeca = 1;
             }
-            double MaoDeObra = 0.0;
-            double PrecoReparo = 0.0;
+            else{
+                ispeca = 0;
+            }
+            String MaoDeObra = "0.0";
+            String PrecoReparo = "0.0";
             String ModeloCarro = null;
 
-            if(ispeca == 0){
-                MaoDeObra = ((Peca) p).getPrecoMaoDeObra();
-                PrecoReparo = ((Peca) p).getPrecoReparo();
+            if(ispeca == 1){
+                MaoDeObra = String.valueOf(((Peca) p).getPrecoMaoDeObra());
+                PrecoReparo = String.valueOf(((Peca) p).getPrecoReparo());
                 ModeloCarro = ((Peca) p).getModeloCarro();
             }
-            String comando = String.format("INSERT INTO produto (tipo,precoVenda,precoCompra,maoDeObra,id,ePeca,precoReparo,modeloCarro) VALUES('%s', %f, %f, %f, %d, %BOOLEAN, %f, '%s')", p.getTipo(), p.getPrecoVenda(), p.getPrecoCompra(), MaoDeObra, p.getId(), p.getEPeca(), PrecoReparo, ModeloCarro);
+            String comando = String.format("INSERT INTO produto (tipo,precoVenda,precoCompra,maoDeObra,id,ePeca,precoReparo,modeloCarro) VALUES('%s', %s, %s, %s, %d, %d, %s, '%s')", p.getTipo(), p.getPrecoVenda(), p.getPrecoCompra(), MaoDeObra, p.getId(), ispeca, PrecoReparo, ModeloCarro);
             this.executarComando(comando);
             this.fecharConexao();
         }catch(Exception e){
@@ -168,7 +168,7 @@ public class Database {
             double maoDeObra;
             double precoReparo;
             int id;
-            boolean ePeca;
+            int ePeca;
             //tipo, precoVenda, precoCompra, maoDeObra, id, ePeca, precoReparo, modeloCarro
             while (rs.next()){
                 tipo = rs.getString("tipo");
@@ -178,8 +178,8 @@ public class Database {
                 precoReparo = rs.getDouble("precoReparo");
                 maoDeObra = rs.getDouble("maoDeObra");
                 id = rs.getInt("id");
-                ePeca = rs.getBoolean("ePeca");
-                if (ePeca){
+                ePeca = rs.getInt("ePeca");
+                if (ePeca == 1){
                     lista.add(new Peca(tipo,modeloCarro,precoCompra,precoVenda,maoDeObra,precoReparo,id));
                 }
                 else{
@@ -256,7 +256,7 @@ public class Database {
         try {
             //id INT, tipoOperacao, data, precoServico, placaVeiculo, produtoID INT
             this.abrirConexao();
-            String comando = String.format("SELECT * FROM servico WHERE placaVeiculo='$s' AND concluido=false", v.getPlaca());
+            String comando = String.format("SELECT * FROM servico WHERE (placaVeiculo='%s' AND concluido=0)", v.getPlaca());
             ResultSet rs = this.executarComando(comando);
             String tipoOperacao;
             boolean concluido;
@@ -277,7 +277,12 @@ public class Database {
                 preco = rs.getDouble("precoServico");
                 produtoID = rs.getInt("produtoID");
                 command = String.format("SELECT * FROM produto WHERE id=%d", produtoID);
-                concluido = rs.getBoolean("concluido");
+                if (rs.getInt("concluido")==1){
+                    concluido = true;
+                }
+                else{
+                    concluido = false;
+                }
                 descricao = rs.getString("descricao");
                 rs2 = this.executarComando(command);
                 rs2.next();
@@ -289,7 +294,7 @@ public class Database {
                 else{
                     p = new Produto(rs2.getString("tipo"),rs2.getDouble("precoCompra"),rs2.getDouble("precoVenda"),rs2.getInt("id"));
                 }
-                lista.add(new Servico(tipoOperacao, p, new DataSimples(Integer.parseInt(data.substring(0,2)),Integer.parseInt(data.substring(3,5)),Integer.parseInt(data.substring(6))), preco, concluido, descricao, id, v.getPlaca()));
+                lista.add(new Servico(tipoOperacao, p, new DataSimples(Integer.parseInt(data.substring(0,2)),Integer.parseInt(data.substring(3,5)),Integer.parseInt(data.substring(6))), preco, false, descricao, id, v.getPlaca()));
 
             }
 
@@ -304,7 +309,7 @@ public class Database {
     public void concluir(Servico s){
         try{
             this.abrirConexao();
-            String comando = String.format("UPDATE servico SET concluido=true WHERE id=%d",s.getId());
+            String comando = String.format("UPDATE servico SET concluido = 1 WHERE id=%d AND placaVeiculo='%s'",s.getId(),s.getPlaca());
             this.executarComando(comando);
             this.fecharConexao();
         }catch (Exception e){
@@ -346,12 +351,17 @@ public class Database {
             while (rs.next()){
                 tipoOperacao = rs.getString("tipoOperacao");
                 data = rs.getString("data");
-                placa = rs.getString("placa");
+                placa = rs.getString("placaVeiculo");
                 id = rs.getInt("id");
                 preco = rs.getDouble("precoServico");
                 produtoID = rs.getInt("produtoID");
                 command = String.format("SELECT * FROM produto WHERE id=%d", produtoID);
-                concluido = rs.getBoolean("concluido");
+                if (rs.getInt("concluido") == 1){
+                    concluido = true;
+                }
+                else {
+                    concluido = false;
+                }
                 descricao = rs.getString("descricao");
                 rs2 = this.executarComando(command);
                 rs2.next();
@@ -381,8 +391,21 @@ public class Database {
             String mes = String.format("%02d", servico.getDataServico().getMes());
             String data = dia+"-"+mes+"-"+String.valueOf(servico.getDataServico().getAno());
             this.abrirConexao();
-            String comando = String.format("INSERT INTO servico (id, tipoOperacao, data, precoServico, placaVeiculo, produtoID, concluido, descricao) VALUES(%d,'%s','%s',%f,'%s',%d,%b,'%s')",servico.getId(),servico.getTipoOperacao(),data,servico.getPrecoServico(),servico.getPlaca(),servico.getProduto().getId(),servico.getConcluido(),servico.getDescricao());
-            this.executarComando(comando);
+            int concluido;
+            if (servico.getConcluido()){
+                concluido = 1;
+            }
+            else{
+                concluido = 0;
+            }
+            String comando = String.format("INSERT INTO servico (id, tipoOperacao, data, precoServico, placaVeiculo, produtoID, concluido, descricao) VALUES(%d,'%s','%s',%s,'%s',%d,%d,'%s')",servico.getId(),servico.getTipoOperacao(),data,String.valueOf(servico.getPrecoServico()),servico.getPlaca(),servico.getProduto().getId(),concluido,servico.getDescricao());
+            if (servico.getPlaca() != null && !servico.getPlaca().equals("")) {
+                this.executarComando(comando);
+            }
+            else{
+                comando = String.format("INSERT INTO servico (id, tipoOperacao, data, precoServico, placaVeiculo, produtoID, concluido, descricao) VALUES(%d,'%s','%s',%s,null,%d,%d,'%s')",servico.getId(),servico.getTipoOperacao(),data,String.valueOf(servico.getPrecoServico()),servico.getProduto().getId(),concluido,servico.getDescricao());
+                this.executarComando(comando);
+            }
             this.fecharConexao();
         }catch (Exception e){
             e.printStackTrace();

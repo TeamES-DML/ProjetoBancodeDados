@@ -35,7 +35,7 @@ public class Servico {
 		this.descricao = descricao;
 		this.concluido = false;
 		this.dataServico = data;
-		this.id = contadorServico;
+		this.id = contadorServico+1;
 		contadorServico++;
 	}
 
@@ -48,6 +48,9 @@ public class Servico {
 		this.concluido = concluido;
 		this.descricao = descricao;
 		this.id = id;
+		if (id >= contadorServico){
+			contadorServico = id+1;
+		}
 	}
 
 	/*
@@ -60,7 +63,7 @@ public class Servico {
 		this.precoServico = this.produto.getPrecoCompra();
 		this.dataServico = data;
 		this.concluido = true;
-		this.id = contadorServico;
+		this.id = contadorServico+1;
 		contadorServico++;
 	}
 

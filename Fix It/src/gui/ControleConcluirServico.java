@@ -133,7 +133,7 @@ public class ControleConcluirServico implements Initializable {
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Erro");
             alerta.setHeaderText("ERRO");
-            alerta.setContentText("Servico nao escolhido");
+            alerta.setContentText("Servico nao encontrado");
             alerta.showAndWait();
         }
         catch (Exception e){

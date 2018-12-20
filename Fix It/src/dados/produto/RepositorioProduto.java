@@ -15,6 +15,7 @@ public class RepositorioProduto implements IRepositorioProduto{
 	public RepositorioProduto(){
 		//this.listaProduto = new ArrayList<Produto>();
 		this.db = new Database();
+		this.getArrayProduto();
 	}
 	@Override
 	public void adicionar(Produto produto){

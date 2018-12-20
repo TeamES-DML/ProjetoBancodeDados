@@ -28,7 +28,7 @@ public class NegocioServico {
         else{
             for (int i = 0; i < repositorio.getArray().size(); i++) {
                 if (repositorio.getArray().get(i).getDataServico().getMes() == mes && repositorio.getArray().get(i).getDataServico().getAno() == ano && repositorio.getArray().get(i).getConcluido()) {
-                    if(repositorio.getArray().get(i).getTipoOperacao() == "Compra"){
+                    if(repositorio.getArray().get(i).getTipoOperacao().equals("Compra")){
                         lucro -= this.repositorio.getArray().get(i).getPrecoServico();
                     }
                     else{
@@ -48,7 +48,7 @@ public class NegocioServico {
         else {
             for (int i = 0; i < repositorio.getArray().size(); i++) {
                 if (repositorio.getArray().get(i).getDataServico().getAno() == ano && repositorio.getArray().get(i).getConcluido()) {
-                    if (repositorio.getArray().get(i).getTipoOperacao() == "Compra") {
+                    if (repositorio.getArray().get(i).getTipoOperacao().equals("Compra")) {
                         lucro -= this.repositorio.getArray().get(i).getPrecoServico();
                     } else {
                         lucro += this.repositorio.getArray().get(i).getPrecoServico();
@@ -113,7 +113,7 @@ public class NegocioServico {
         ArrayList<Servico> arrayServicos = this.repositorio.servicosAndamento(veiculo);
         boolean flag = true;
         for (int k = 0; k < arrayServicos.size() && flag; k++) {
-            if (arrayServicos.get(k).equals(servico)) {
+            if (arrayServicos.get(k).getDataServico().toString().equals(servico.getDataServico().toString()) && arrayServicos.get(k).getProduto().getTipo().equals(servico.getProduto().getTipo()) && arrayServicos.get(k).getDescricao().equals(servico.getDescricao()) && arrayServicos.get(k).getPrecoServico() == servico.getPrecoServico()) {
                 servico.setConcluido(true);
                 this.repositorio.concluir(servico);
                 flag = false;
